@@ -15,12 +15,15 @@ def process_stock_data(symbol):
     for col in prices_df.columns:
         prices_df[col] = pd.to_numeric(prices_df[col], errors='coerce')
 
-    # Feature Engineering: Create additional features if necessary, e.g., moving averages
+    # Feature Engineering: Create additional features if necessary
+    # moving average
     prices_df['moving_average'] = prices_df['close'].rolling(window=10).mean()
+    # differencing
+    prices_df['close_diff'] = prices_df['close'].diff(1)
 
     # Normalize features
     scaler = StandardScaler()
-    prices_df[['open', 'high', 'low', 'close', 'volume', 'moving_average']] = scaler.fit_transform(prices_df[['open', 'high', 'low', 'close', 'volume', 'moving_average']])
+    prices_df[['open', 'high', 'low', 'close', 'volume', 'moving_average', 'close_diff']] = scaler.fit_transform(prices_df[['open', 'high', 'low', 'close', 'volume', 'moving_average', 'close_diff']])
     
     return prices_df
 
