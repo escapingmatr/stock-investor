@@ -1,8 +1,8 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
-from .api_integration.alpha_vantage import fetch_historical_prices, fetch_technical_indicator
-from .api_integration.fred_api import fetch_economic_data
+from api_integration.alpha_vantage import fetch_historical_prices, fetch_technical_indicator
+from api_integration.fred_api import fetch_economic_data
 
 def process_stock_data(symbol):
     # Example: Fetch and process historical stock prices
