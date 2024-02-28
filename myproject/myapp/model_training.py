@@ -1,7 +1,7 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
-from sklearn.metrics import accuracy_score, classification_report
+from sklearn.metrics import accuracy_score, classification_report, mean_squared_error, r2_score
 from api_integration.alpha_vantage import fetch_historical_prices, fetch_technical_indicator
 from api_integration.fred_api import fetch_economic_data
 
