@@ -1,45 +1,32 @@
 <template>
   <div>
-    <input
-      v-model="stockCode"
-      @input="validateStockCode"
-      placeholder="Enter stock code"
-    />
-    <button :disabled="!isValidStockCode" @click="trainModel">Search</button>
-    <div v-if="trainingResponse">
-      <p>Model training result: {{ trainingResponse }}</p>
-    </div>
+    <input v-model="stockCode" placeholder="Enter Stock Code" />
+    <button @click="fetchPrediction">Search</button>
+    <div v-if="prediction">Prediction: {{ prediction }}</div>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   data() {
     return {
       stockCode: '',
-      isValidStockCode: false,
-      trainingResponse: null,
+      prediction: null,
     };
   },
   methods: {
-    validateStockCode() {
-      // Simple validation rule for demonstration. Adjust as needed.
-      this.isValidStockCode = this.stockCode.length > 0; // Basic validation
-    },
-    async trainModel() {
+    async fetchPrediction() {
+      if (!this.stockCode) return;
       try {
-        const response = await fetch(
-          `http://your-backend-endpoint/api/train/${this.stockCode}`,
-          {
-            method: 'POST', // or "GET", depending on your backend setup
-            // Include headers, body, etc., as required by your backend
-          }
-        );
-        const data = await response.json();
-        this.trainingResponse = data.message; // Adjust based on the actual response structure
+        const response = await axios.post('http://localhost:8000/predict/', {
+          stock_code: this.stockCode,
+        });
+        this.prediction = response.data.prediction;
       } catch (error) {
-        console.error('Error training model:', error);
-        this.trainingResponse = 'Failed to train model.';
+        console.error('Error fetching prediction:', error);
+        this.prediction = null;
       }
     },
   },
