@@ -20,7 +20,7 @@ export default {
     async fetchPrediction() {
       if (!this.stockCode) return;
       try {
-        const response = await axios.post('http://localhost:8000/predict/', {
+        const response = await axios.post('http://localhost:8001/predict/', {
           stock_code: this.stockCode,
         });
         this.prediction = response.data.prediction;

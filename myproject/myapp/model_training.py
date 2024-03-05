@@ -39,4 +39,5 @@ def train_random_forest_model(processed_data):
     print(f'Mean Squared Error: {mse}')
     print(f'R^2 Score: {r2}')
     
-    return reg, mse, r2
+    # return the next day prediction price, mse and r2
+    return prediction_scaled[0], mse, r2
